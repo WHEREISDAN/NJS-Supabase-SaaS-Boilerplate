@@ -1,5 +1,5 @@
-import { SampleComponent } from '@/components/ui/sample-component';
+import { HeroSection } from '@/components/landing/hero-section';
 
 export default function Home() {
-  return <SampleComponent />;
+  return <HeroSection />;
 }
