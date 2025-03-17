@@ -1,14 +1,14 @@
-import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { ThemeToggleAdvanced } from "../theme/theme-toggle";
 
 export function SampleComponent() {
   return (
     <div className="container mx-auto p-4">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">daisyUI + next-themes Demo</a>
+          <a className="btn btn-ghost text-xl">daisyUI + Theme Switcher Demo</a>
         </div>
         <div className="flex-none">
-          <ThemeToggle />
+          <ThemeToggleAdvanced />
         </div>
       </div>
 
@@ -17,9 +17,6 @@ export function SampleComponent() {
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>This is a daisyUI card component that adapts to the current theme.</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Button</button>
-            </div>
           </div>
         </div>
 
