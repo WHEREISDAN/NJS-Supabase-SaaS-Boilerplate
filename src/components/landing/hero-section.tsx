@@ -111,7 +111,7 @@ export function HeroSection() {
                   </motion.button>
                 </Link>
                 
-                <Link href="/get-started">
+                <Link href="/auth/signin">
                   <motion.button 
                     className="btn btn-outline btn-lg w-full sm:w-auto"
                     whileHover={{ scale: 1.03 }}
