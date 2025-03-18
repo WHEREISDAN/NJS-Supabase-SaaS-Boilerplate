@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   full_name TEXT,
   avatar_url TEXT,
   website TEXT,
-  email TEXT
+  email TEXT,
+  role TEXT DEFAULT 'user'
 );
 
 -- Enable Row Level Security
@@ -33,12 +34,13 @@ CREATE POLICY "Users can update their own profile"
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, avatar_url, email)
+  INSERT INTO public.profiles (id, full_name, avatar_url, email, role)
   VALUES (
     NEW.id,
     NEW.raw_user_meta_data->>'full_name',
     NEW.raw_user_meta_data->>'avatar_url',
-    NEW.email
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data->>'role', 'user')
   );
   RETURN NEW;
 END;

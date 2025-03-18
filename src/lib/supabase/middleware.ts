@@ -35,9 +35,28 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  let userRole = 'user';
+
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+    
+    if (profile) {
+      userRole = profile.role;
+    }
+  }
+
   const publicRoutes = ['/', '/auth/signin', '/auth/signup', '/pricing'];
   const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname);
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard');
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
+
+  if (isAdminRoute && userRole !== 'admin') {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
   if (!user && isDashboardRoute) {
     // Redirect unauthenticated users trying to access dashboard to signin
