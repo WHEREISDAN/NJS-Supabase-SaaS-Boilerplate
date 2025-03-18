@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 
 interface ProfileFormProps {
@@ -8,9 +9,10 @@ interface ProfileFormProps {
   email: string;
   initialFullName: string;
   initialWebsite: string;
+  avatarUrl: string;
 }
 
-export default function ProfileForm({ userId, email, initialFullName, initialWebsite }: ProfileFormProps) {
+export default function ProfileForm({ userId, email, initialFullName, initialWebsite, avatarUrl }: ProfileFormProps) {
   const [fullName, setFullName] = useState(initialFullName);
   const [website, setWebsite] = useState(initialWebsite);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,10 +52,17 @@ export default function ProfileForm({ userId, email, initialFullName, initialWeb
         <div className="flex flex-col items-center sm:flex-row sm:items-start gap-6">
           <div className="avatar">
             <div className="w-24 h-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 bg-base-300 flex items-center justify-center overflow-hidden">
-              {/* Placeholder avatar - replace with actual user avatar when connected to backend */}
-              <span className="text-3xl">
-                {email?.charAt(0).toUpperCase() || '?'}
-              </span>
+              {avatarUrl ? (
+                <img 
+                  src={avatarUrl} 
+                  alt="Profile picture" 
+                  className="object-cover w-full h-full"
+                />
+              ) : (
+                <span className="text-3xl">
+                  {email?.charAt(0).toUpperCase() || '?'}
+                </span>
+              )}
             </div>
           </div>
           

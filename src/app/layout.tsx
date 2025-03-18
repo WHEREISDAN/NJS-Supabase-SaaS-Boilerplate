@@ -1,19 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { StripeProvider } from '@/lib/stripe/stripe-provider';
 import { AuthProvider } from '@/components/auth/auth-provider';
 import { Inter } from 'next/font/google';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 // Configure Inter font with Latin subset for better performance
 const inter = Inter({
@@ -33,23 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-theme', theme);
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${inter.className} antialiased`}>
       <body>
         <ThemeProvider>
           <AuthProvider>
-            {children}
+            <StripeProvider>
+              {children}
+            </StripeProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

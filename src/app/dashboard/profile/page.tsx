@@ -26,6 +26,7 @@ export default async function ProfilePage() {
         email={session.user.email || ''} 
         initialFullName={profile?.full_name || ''} 
         initialWebsite={profile?.website || ''} 
+        avatarUrl={profile?.avatar_url || ''}
       />
     </div>
   );

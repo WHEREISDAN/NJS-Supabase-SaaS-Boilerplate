@@ -35,7 +35,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const publicRoutes = ['/', '/auth/signin', '/auth/signup'];
+  const publicRoutes = ['/', '/auth/signin', '/auth/signup', '/pricing'];
   const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname);
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard');
 
