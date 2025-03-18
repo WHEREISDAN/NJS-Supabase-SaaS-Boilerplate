@@ -72,6 +72,23 @@ CREATE POLICY "Products are viewable by everyone"
   FOR SELECT
   USING (true);
 
+-- Add policy for service role to manage subscriptions
+CREATE POLICY "Service role can manage all subscriptions"
+  ON public.subscriptions
+  FOR ALL
+  USING (auth.role() = 'service_role');
+
+-- Add policy for service role to update profiles
+CREATE POLICY "Service role can update profiles"
+  ON public.profiles
+  FOR UPDATE
+  USING (auth.role() = 'service_role');
+
 -- Add stripe_customer_id to profiles table
 ALTER TABLE public.profiles
 ADD COLUMN IF NOT EXISTS stripe_customer_id TEXT UNIQUE;
+
+ALTER TABLE public.prices 
+ADD CONSTRAINT prices_product_id_fkey 
+FOREIGN KEY (product_id) 
+REFERENCES public.products(id);

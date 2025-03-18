@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
-import ProfileForm from './components/profile-form';
+import SettingsTabs from './components/settings-tabs';
+import { getUserSubscription } from '@/lib/subscription';
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -17,16 +18,20 @@ export default async function ProfilePage() {
     .eq('id', session.user.id)
     .single();
   
+  // Fetch the user's subscription data
+  const subscription = await getUserSubscription(session.user.id);
+  
   return (
-    <div className="max-w-screen mx-auto">
+    <div className="">
       <h1 className="text-3xl font-bold mb-6">Profile Settings</h1>
       
-      <ProfileForm 
+      <SettingsTabs
         userId={session.user.id} 
         email={session.user.email || ''} 
         initialFullName={profile?.full_name || ''} 
         initialWebsite={profile?.website || ''} 
         avatarUrl={profile?.avatar_url || ''}
+        subscription={subscription}
       />
     </div>
   );
