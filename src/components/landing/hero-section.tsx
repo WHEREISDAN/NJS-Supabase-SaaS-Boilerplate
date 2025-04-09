@@ -3,8 +3,8 @@
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import { useEffect } from "react";
-import { ThemeToggleAdvanced } from "../theme/theme-toggle";
-import { useTheme } from "../theme/theme-provider";
+import { ThemeToggleAdvanced } from "../ui/theme/theme-toggle";
+import { useTheme } from "@/contexts/theme-provider";
 
 export function HeroSection() {
   const { resolvedTheme } = useTheme();

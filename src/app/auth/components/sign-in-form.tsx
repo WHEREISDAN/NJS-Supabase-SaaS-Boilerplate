@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { useAuth } from './auth-provider';
+import { useAuth } from '../../../contexts/auth-provider';
 import { useRouter } from 'next/navigation';
 
 export function SignInForm() {
