@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import SettingsTabs from './components/settings-tabs';
-import { getUserSubscription } from '@/lib/subscription';
+import { getUserSubscription } from '@/services/subscription';
 
 export default async function ProfilePage() {
   const supabase = await createClient();

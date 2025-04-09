@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
-import { getUserSubscription } from '@/lib/subscription';
+import { getUserSubscription } from '@/services/subscription';
 import { ManageSubscription } from './components/manage-subscription';
 
 export default async function DashboardPage() {

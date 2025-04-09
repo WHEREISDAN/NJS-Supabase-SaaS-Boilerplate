@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/contexts/theme-provider';
-import { StripeProvider } from '@/lib/stripe/stripe-provider';
+import { StripeProvider } from '@/contexts/stripe-provider';
 import { AuthProvider } from '@/contexts/auth-provider';
 import { Inter } from 'next/font/google';
 

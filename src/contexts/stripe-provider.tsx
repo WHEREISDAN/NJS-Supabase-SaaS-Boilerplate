@@ -41,4 +41,4 @@ export function useStripe() {
     throw new Error('useStripe must be used within a StripeProvider');
   }
   return context;
-}
+} 

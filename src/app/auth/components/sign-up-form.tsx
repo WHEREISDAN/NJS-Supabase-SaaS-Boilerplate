@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from 'react';
-import { useAuth } from './auth-provider';
+import { useAuth } from '@/contexts/auth-provider';
 import { useRouter } from 'next/navigation';
+import { Github, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 export function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -93,6 +95,33 @@ export function SignUpForm() {
           {isLoading ? 'Creating account...' : 'Sign Up'}
         </button>
       </form>
+
+      <div className="divider my-6">OR</div>
+      
+      <div className="flex justify-between w-full">
+        <div className="tooltip flex-1 mx-1" data-tip="Sign up with GitHub">
+          <button className="btn btn-lg h-16 w-full bg-gray-800 hover:bg-gray-900 border-none">
+            <Github className="w-7 h-7 text-white" />
+          </button>
+        </div>
+        
+        <div className="tooltip flex-1 mx-1" data-tip="Sign up with Google">
+          <button className="btn btn-lg h-16 w-full bg-white hover:bg-gray-100 border-gray-300">
+            <Image 
+              src="/google-icon.svg" 
+              alt="Google" 
+              width={28} 
+              height={28} 
+            />
+          </button>
+        </div>
+        
+        <div className="tooltip flex-1 mx-1" data-tip="Sign up with Magic Link">
+          <button className="btn btn-lg h-16 w-full bg-purple-600 hover:bg-purple-700 border-none">
+            <Sparkles className="w-7 h-7 text-white" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

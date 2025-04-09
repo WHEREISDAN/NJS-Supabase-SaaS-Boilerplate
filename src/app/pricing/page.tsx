@@ -1,4 +1,4 @@
-import { getActiveProductsWithPrices } from '@/lib/subscription';
+import { getActiveProductsWithPrices } from '@/services/subscription';
 import { Pricing } from './components/pricing';
 
 export default async function PricingPage() {
