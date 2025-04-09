@@ -1,6 +1,6 @@
 "use client";
 
-import { ManageSubscription } from '@/app/dashboard/components/manage-subscription';
+import { ManageSubscription } from '@/components/dashboard/manage-subscription';
 import { Subscription } from '@/types/subscription';
 
 interface SubscriptionTabProps {

@@ -247,3 +247,5 @@ To learn more about the technologies used in this project, check out the followi
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/) - Learn TypeScript
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Learn Tailwind CSS
 - [DaisyUI Documentation](https://daisyui.com/docs/) - Learn DaisyUI components
+
+stripe listen --forward-to http://localhost:3000/api/webhooks/stripe

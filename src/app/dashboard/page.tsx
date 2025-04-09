@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { getUserSubscription } from '@/lib/subscription';
-import { ManageSubscription } from './components/manage-subscription';
+import { ManageSubscription } from '../../components/dashboard/manage-subscription';
 
 export default async function DashboardPage() {
   const supabase = await createClient();

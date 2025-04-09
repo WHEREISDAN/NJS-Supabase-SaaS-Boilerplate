@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
-import SettingsTabs from './components/settings-tabs';
+import SettingsTabs from '../../../components/profile/settings-tabs';
 import { getUserSubscription } from '@/lib/subscription';
 
 export default async function ProfilePage() {

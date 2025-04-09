@@ -1,5 +1,5 @@
 import { getActiveProductsWithPrices } from '@/lib/subscription';
-import { Pricing } from './components/pricing';
+import { Pricing } from '../../components/pricing/pricing';
 
 export default async function PricingPage() {
   const products = await getActiveProductsWithPrices();
