@@ -1,18 +1,32 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../../contexts/auth-provider';
-import { useRouter } from 'next/navigation';
-import { Github, Sparkles } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Github, Sparkles, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Check for success message in URL params (e.g., from password reset)
+  useEffect(() => {
+    const message = searchParams.get('message');
+    if (message) {
+      setSuccessMessage(message);
+      // Auto-hide success message after 5 seconds
+      const timer = setTimeout(() => setSuccessMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,8 +48,15 @@ export function SignInForm() {
     <div className="w-full max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Sign In</h2>
       
+      {successMessage && (
+        <div className="alert alert-success mb-4">
+          <span>{successMessage}</span>
+        </div>
+      )}
+      
       {error && (
         <div className="alert alert-error mb-4">
+          <AlertCircle className="h-4 w-4" />
           <span>{error}</span>
         </div>
       )}
@@ -65,6 +86,11 @@ export function SignInForm() {
             className="input input-bordered w-full"
             required
           />
+          <label className="label">
+            <Link href="/auth/forgot-password" className="label-text-alt link link-hover text-primary">
+              Forgot password?
+            </Link>
+          </label>
         </div>
         
         <button
@@ -72,7 +98,7 @@ export function SignInForm() {
           className="btn btn-primary w-full"
           disabled={isLoading}
         >
-          {isLoading ? 'Signing in...' : 'Sign In'}
+          {isLoading ? <span className="loading loading-spinner"></span> : 'Sign In'}
         </button>
       </form>
 
