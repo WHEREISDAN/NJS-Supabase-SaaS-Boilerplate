@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const type = requestUrl.searchParams.get('type');
   const next = requestUrl.searchParams.get('next');
   
-  // Get the source from the URL (signup, recovery, etc.) for our verified page
+  // Get the source from the URL (signup, recovery, magic_link, etc.) for our verified page
   const source = type || requestUrl.searchParams.get('source');
 
   if (code) {
@@ -22,6 +22,12 @@ export async function GET(request: NextRequest) {
         // Check if this looks like an email verification
         if (source === 'signup' || source === 'recovery') {
           return NextResponse.redirect(`${requestUrl.origin}/auth/verified?source=${source}`);
+        }
+        
+        // Check for magic link
+        if (source === 'magic_link') {
+          // Redirect directly to dashboard since the user is already verified
+          return NextResponse.redirect(`${requestUrl.origin}/dashboard`);
         }
         
         // If there's a next parameter, redirect there

@@ -13,6 +13,9 @@ type AuthContextType = {
   signOut: () => Promise<void>;
   resetPasswordForEmail: (email: string) => Promise<{ error: AuthError | null }>;
   resendEmailVerification: (email: string) => Promise<{ error: AuthError | null }>;
+  signInWithGithub: () => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signInWithMagicLink: (email: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -85,6 +88,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   };
 
+  const signInWithGithub = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: `${window.location.origin}/api/auth/callback`
+      }
+    });
+    if (error) throw error;
+  };
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/api/auth/callback`
+      }
+    });
+    if (error) throw error;
+  };
+
+  const signInWithMagicLink = async (email: string) => {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/api/auth/callback?source=magic_link`
+      }
+    });
+    if (error) throw error;
+  };
+
   const value = {
     user,
     session,
@@ -94,6 +127,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signOut,
     resetPasswordForEmail,
     resendEmailVerification,
+    signInWithGithub,
+    signInWithGoogle,
+    signInWithMagicLink
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

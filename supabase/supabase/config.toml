@@ -105,10 +105,13 @@ file_size_limit = "50MiB"
 enabled = true
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-# Ensure this matches your local dev URL
 site_url = "http://localhost:3000"
-# Add any other valid redirect URLs if needed
-additional_redirect_urls = ["http://127.0.0.1:3000", "http://localhost:3000"]
+# A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
+additional_redirect_urls = [
+    "http://localhost:3000",
+    "http://localhost:3000/api/auth/callback",
+    "http://localhost:3000/auth/callback"
+]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # If disabled, the refresh token will never expire.
@@ -179,15 +182,15 @@ otp_expiry = 3600
 # Uncomment to customize email template
 [auth.email.template.invite]
 subject = "You've been invited to SaaStack"
-content_path = "./templates/invite.html"
+content_path = "./supabase/templates/invite.html"
 
 [auth.email.template.confirmation]
 subject = "Confirm your SaaStack account"
-content_path = "./templates/confirmation.html"
+content_path = "./supabase/templates/confirmation.html"
 
 [auth.email.template.recovery]
 subject = "Reset your SaaStack password"
-content_path = "./templates/recovery.html"
+content_path = "./supabase/templates/recovery.html"
 
 [auth.email.smtp]
 enabled = true
@@ -195,7 +198,7 @@ host = "smtp.resend.com"
 port = 465 # Or 465 if using SSL
 user = "resend" # Resend uses 'apikey' as the username
 # Use environment variable substitution for the API key
-pass = "re_81ZSiv34_CobQ5in8QdUSfBrozBC8zs1k"
+pass = "env(RESEND_API_KEY)"
 # Optional: Set your sending domain's admin email and sender name
 admin_email = "no-reply@whereisdan.dev"
 sender_name = "SaaStack"
@@ -260,6 +263,21 @@ max_frequency = "5s"
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
 # `twitter`, `slack`, `spotify`, `workos`, `zoom`.
+# GitHub OAuth
+[auth.external.github]
+enabled = true
+client_id = "Ov23li6q32YJzMopJZir"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET)"
+redirect_uri = ""
+
+# Google OAuth
+[auth.external.google]
+enabled = true
+client_id = "548435376951-p9uiht8ajkroed6tn4lb4dmnirn9q80f.apps.googleusercontent.com"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+redirect_uri = ""
+
+
 [auth.external.apple]
 enabled = false
 client_id = ""
